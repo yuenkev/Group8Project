@@ -1,23 +1,33 @@
+using Group8Project.Models;
+using Group8Projects.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<MBS_DBContext>(opts =>
+{
+    opts.UseSqlServer(
+builder.Configuration["ConnectionStrings:MBSConnStr"]);
+});
+
+
+//For our application it means that the application components can access objects that implement the IBookRepository interface without knowing that it is the
+// EFStoreRepository implementation class they are using.
+
+builder.Services.AddScoped<IUserRepository, EFUserRepository>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-}
+//make sure this is enabled so you don't get this error
+//failed-to-load-resource-the-server-responded-with-a-status-of-404-not-found
 app.UseStaticFiles();
 
-app.UseRouting();
+app.MapControllerRoute("homepage", "Home", new { Controller = "Home", Action = "SignUpPage" });
+app.MapControllerRoute("homepage", "Home/Dashboard", new { Controller = "Home", Action = "LoginPage" });
 
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapDefaultControllerRoute();
 
 app.Run();
