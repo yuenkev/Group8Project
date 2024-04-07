@@ -3,6 +3,9 @@
     public interface IReviewRepository
     {
         IQueryable<Review> Reviews { get; }
-        public void addReview(Review rw);
+        public Review addReview(Review rw);
+        public void removeReview(int id);
+        Review UpdateReview(Review review);
+        Review GetReviewById(int id);
     }
 }

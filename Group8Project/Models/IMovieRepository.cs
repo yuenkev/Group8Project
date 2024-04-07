@@ -3,8 +3,11 @@
     public interface IMovieRepository
     {
         IQueryable<Movie> Movies { get; }
-        public void addMovie(Movie mv);
+        public Movie addMovie(Movie mv);
+        public void removeMovie(int id);
+        Movie UpdateMovie(Movie movie);
+        Movie GetMovieById(int id);
 
-        
+
     }
 }

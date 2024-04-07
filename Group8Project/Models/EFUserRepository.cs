@@ -11,12 +11,50 @@ namespace Group8Projects.Models
             context = ctx;
         }
 
-        public void addUser(User us)
-        {
-            context.Users.Add(us);
-            context.SaveChanges();
-        }
         public IQueryable<User> Users => context.Users;
+
+        public User addUser(User us)
+        {
+            var existingUser = context.Users.FirstOrDefault(u => u.Email == us.Email);
+
+            if (existingUser != null)
+            {
+                // Update existing user properties
+                existingUser.FName = us.FName;
+                existingUser.LName = us.LName;
+                existingUser.PNumber = us.PNumber;
+                existingUser.Password = us.Password;
+                existingUser.RePassword = us.RePassword;
+
+                // Save changes to the existing user
+                context.SaveChanges();
+
+                return existingUser;
+            }
+            else
+            {
+                // Add new user to the database
+                context.Users.Add(us);
+                context.SaveChanges();
+
+                return us;
+            }
+        }
+        public void removeUser(string email)
+        {
+            var userToRemove = context.Users.FirstOrDefault(u => u.Email == email);
+
+            if (userToRemove != null)
+            {
+                context.Users.Remove(userToRemove);
+                context.SaveChanges();
+            }
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            return context.Users.FirstOrDefault(u => u.Email == email);
+        }
 
         public bool EmailExists(string email)
         {
@@ -36,6 +74,11 @@ namespace Group8Projects.Models
             bool validPassword = context.Users.Any(u => u.Email == user.Email && u.Password == user.Password);
 
             return validPassword;
+        }
+
+        public User UpdateUser(User user)
+        {
+            return addUser(user);
         }
 
     }
