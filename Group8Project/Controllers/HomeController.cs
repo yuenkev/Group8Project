@@ -1,4 +1,5 @@
 ﻿using Group8Project.Models;
+using Group8Project.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,10 +8,14 @@ namespace Group8Project.Controllers
     public class HomeController : Controller
     {
         private IUserRepository _userRepository;
+        private IMovieRepository _movieRepository;
+        private IReviewRepository _reviewRepository;
 
-        public HomeController(IUserRepository userRepository)
+        public HomeController(IUserRepository userRepository, IMovieRepository movieRepository, IReviewRepository reviewRepository)
         {
             _userRepository = userRepository;
+            _movieRepository = movieRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public IActionResult Index()
@@ -92,7 +97,7 @@ namespace Group8Project.Controllers
                 User authenticatedUser = _userRepository.Users.FirstOrDefault(x => x.Email == us.Email);
                 ViewBag.User = authenticatedUser;
 
-                return View("DashboardPage");
+                return View("HomePage");
                 //return View("DashboardPage", new DViewModel
                 //{
                 //    Trucks = _truckRepository.Trucks,
@@ -104,9 +109,40 @@ namespace Group8Project.Controllers
                 // If validation fails or login is unsuccessful, return login view with errors
                 return View();
             }
+        }
 
+        [HttpGet]
+        public IActionResult HomePage(HViewModel model)
+        {
+            return View();
         }
 
 
+        [HttpGet]
+        public IActionResult MoviePage(MViewModel model)
+        {
+            return View(new MViewModel
+            {
+                Movies = _movieRepository.Movies
+            });
+        }
+
+        [HttpPost]
+        public IActionResult MoviePage(MViewModel model)
+        {
+            // Validation
+            if (ModelState.IsValid)
+            {
+                _movieRepository.addMovie(model.tempMovie);
+                return RedirectToAction("MoivePage");
+            }
+            else
+            {
+                return View(new MViewModel
+                {
+                    Movies = _movieRepository.Movies
+                });
+            }
+        }
     }
 }

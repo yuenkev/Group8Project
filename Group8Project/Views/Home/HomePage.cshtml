@@ -1,0 +1,37 @@
+﻿@* import the model class *@
+@model Group8Project.Models.ViewModels.HViewModel
+
+@* Assign viewbag into a variable *@
+@{
+    var user = ViewBag.User;
+}
+
+<div class="text-center">
+    <h1 class="display-4">CineLog HomePage</h1>
+    <p>Welcome to the your dashboard @user.FName @user.LName</p>
+
+
+    @* Show User's email and Name *@
+
+    <h6>Your email is @user.Email</h6>
+    <br />
+
+    <div>
+        <div class="btn btn-sm block" style="border:1px solid #ccc">
+            <a asp-action="MoviePage">Movie Catalog</a>
+        </div>
+        <div class="btn btn-sm block" style="border:1px solid #ccc">
+            <a asp-action="SearchPage">Search for Film</a>
+        </div>
+        <div class="btn btn-sm block" style="border:1px solid #ccc">
+            <a asp-action="ProfilePage">Profile</a>
+        </div>
+        <div class="btn btn-sm block" style="border:1px solid #ccc">
+            <a asp-action="LoginPage">Sign Out</a>
+        </div>
+    </div>
+
+
+    @* Show the most recent reviews (5) *@
+    
+</div>

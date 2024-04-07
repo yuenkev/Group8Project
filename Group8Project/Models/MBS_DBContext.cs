@@ -8,6 +8,9 @@ namespace Group8Project.Models
 
         //entity
         public DbSet<User> Users { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        
 
     }
 }
