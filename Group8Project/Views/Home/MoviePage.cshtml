@@ -32,6 +32,10 @@
                                     <td>@item.Director</td>
                                     <td>@item.Runtime</td>
                                     <td>@item.ReleaseDate</td>
+                                    <!-- Add a button or link for rating -->
+                                    <td>
+                                        <a asp-controller="Home" asp-action="ReviewPage" asp-route-id="@item.MovieId" class="btn btn-primary">Rate</a>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -41,7 +45,7 @@
         </div>
     </div>
 
-    <p>Please fill in this form below to add a truck to your fleet!</p>
+    <p>Please fill in this form below to add a movie to the CineLog repository!</p>
     <form asp-action="MoviePage" method="post" style="border:1px solid #ccc">
         <div class="container">
             <hr>

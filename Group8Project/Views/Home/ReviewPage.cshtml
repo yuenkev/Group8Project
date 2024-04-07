@@ -1,0 +1,90 @@
+﻿@* import the model class *@
+@model Group8Project.Models.ViewModels.RViewModel
+
+<div class="text-center">
+
+@*     Display average rating out of 10, movie that has the following ratings *@
+
+
+
+    <h1 class="display-4">Review List</h1>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Rating ID</th>
+                            <th scope="col">User Rating (1-10)</th>
+                            <th scope="col">Review Description</th>
+                            <th scope="col">Date Rated</th>
+                            <th scope="col">Rater</th>
+                            <th scope="col">Movie ID</th>
+                        </tr>
+                    </thead>
+                    @if (Model != null && Model.Reviews != null)
+                    {
+                        <tbody>
+                            @foreach (var item in Model.Reviews)
+                            {
+                                <tr>
+                                    <td>@item.RatingId</td>
+                                    <td>@item.UserRating</td>
+                                    <td>@item.ReviewDescription</td>
+                                    <td>@item.DateRated</td>
+                                    <td>@item.Rater</td>
+                                    <td>@item.MovieId</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <p>Please fill in this form below to add a rating to the CineLog repository!</p>
+    <form asp-action="ReviewPage" method="post" style="border:1px solid #ccc">
+        <div class="container">
+            <hr>
+            @* Displays all the error messages *@
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <label asp-for="tempReview!.RatingId"><b>Rating ID:</b></label>
+            <input asp-for="tempReview!.RatingId">
+            <br /><br />
+            <label asp-for="tempReview!.UserRating"><b>User Rating:</b></label>
+            <input asp-for="tempReview!.UserRating">
+            <br /><br />
+            <label asp-for="tempReview!.ReviewDescription"><b>Review Description:</b></label>
+            <input asp-for="tempReview!.ReviewDescription">
+            <br /><br />
+            <label asp-for="tempReview!.DateRated"><b>Date Rated:</b></label>
+            <input asp-for="tempReview!.DateRated">
+            <br /><br />
+            <label asp-for="tempReview!.Rater"><b>Rater:</b></label>
+            <input asp-for="tempReview!.Rater">
+            <br /><br />
+            <label asp-for="tempReview!.MovieId"><b>Movie Id:</b></label>
+            <select asp-for="tempReview!.MovieId" class="form-control form-control-sm">
+                <option value="">Select Movie ID</option>
+                @foreach (var movie in Model.Movies)
+                {
+                    <option value="@movie.MovieId">@movie.MovieId</option>
+                }
+            </select>
+            <br /><br />
+
+            <div class="clearfix">
+                <button type="submit" class="signupbtn">Add Movie</button>
+            </div>
+            <br />
+        </div>
+    </form>
+
+    <br />
+
+    <div class="btn btn-sm" style="border:1px solid #ccc">
+        <a asp-action="LoginPage">Go To Dashboard</a>
+    </div>
+</div>

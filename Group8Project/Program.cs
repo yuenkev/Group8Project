@@ -18,6 +18,8 @@ builder.Configuration["ConnectionStrings:MBSConnStr"]);
 // EFStoreRepository implementation class they are using.
 
 builder.Services.AddScoped<IUserRepository, EFUserRepository>();
+builder.Services.AddScoped<IMovieRepository, EFMovieRepository>();
+builder.Services.AddScoped<IReviewRepository, EFReviewRepository>();
 
 var app = builder.Build();
 

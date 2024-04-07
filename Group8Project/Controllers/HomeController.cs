@@ -1,6 +1,7 @@
 ﻿using Group8Project.Models;
 using Group8Project.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Group8Project.Controllers
@@ -119,7 +120,7 @@ namespace Group8Project.Controllers
 
 
         [HttpGet]
-        public IActionResult MoviePage(MViewModel model)
+        public IActionResult MoviePage()
         {
             return View(new MViewModel
             {
@@ -134,13 +135,58 @@ namespace Group8Project.Controllers
             if (ModelState.IsValid)
             {
                 _movieRepository.addMovie(model.tempMovie);
-                return RedirectToAction("MoivePage");
+                return RedirectToAction("MoviePage");
             }
             else
             {
                 return View(new MViewModel
                 {
                     Movies = _movieRepository.Movies
+                });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ReviewPage(int id)
+        {
+            //find movie based on movieId selected
+            Movie movie = _movieRepository.Movies.FirstOrDefault(x => x.MovieId == id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(new RViewModel
+            {
+                Movies = _movieRepository.Movies,
+                Reviews = _reviewRepository.Reviews
+            });
+        }
+
+        [HttpPost]
+        public IActionResult ReviewPage(RViewModel model, int id)
+        {
+            //find movie based on movieId selected
+            Movie movie = _movieRepository.Movies.FirstOrDefault(x => x.MovieId == id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            // Validation
+            if (ModelState.IsValid)
+            {
+                _reviewRepository.addReview(model.tempReview);
+                return RedirectToAction("ReviewPage");
+            }
+            else
+            {
+                return View(new RViewModel
+                {
+                    Movies = _movieRepository.Movies,
+                    Reviews = _reviewRepository.Reviews
                 });
             }
         }

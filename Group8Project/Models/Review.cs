@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Group8Project.Models
 {
     public class Review
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required(ErrorMessage = "Please, enter a Rating ID.")]
         public int RatingId { get; set; }
 
