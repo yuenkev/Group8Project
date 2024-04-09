@@ -63,7 +63,7 @@
             <input asp-for="tempReview!.DateRated">
             <br /><br />
             <label asp-for="tempReview!.Rater"><b>Rater:</b></label>
-            <input asp-for="tempReview!.Rater">
+            <input asp-for="tempReview!.Rater" value="@ViewBag.CurrentUser">
             <br /><br />
             <label asp-for="tempReview!.MovieId"><b>Movie Id:</b></label>
             <select asp-for="tempReview!.MovieId" class="form-control form-control-sm">

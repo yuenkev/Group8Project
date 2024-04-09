@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="text-center">
+    <h1 class="display-4">Search Page</h1>
+
+    @* Input for movie search *@
+
+    <p>Please fill in to search for a movie!</p>
+    <form asp-action="SearchPage" method="post" style="border:1px solid #ccc">
+        <div class="container">
+            <hr>
+            @* Displays all the error messages *@
+            <label for="searchInputTitle"><b>Movie Title:</b></label>
+            <input for="searchInputTitle" name="searchInput" id="searchInput">
+            <br /><br />
+            <div class="clearfix">
+                <button type="submit" class="signupbtn">Search</button>
+            </div>
+            <br />
+        </div>
+    </form>
+
+
+
+    @* display the search results *@
+<div id="searchResults">
+    <!-- Search results will be displayed here -->
+    <h1 class="display-4">Review List</h1>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Rating ID</th>
+                            <th scope="col">User Rating (1-10)</th>
+                            <th scope="col">Review Description</th>
+                            <th scope="col">Date Rated</th>
+                            <th scope="col">Rater</th>
+                            <th scope="col">Movie ID</th>
+                        </tr>
+                    </thead>
+                    @if (Model != null && Model.Reviews != null)
+                 {
+                    <tbody>
+                        @foreach (var item in Model.Reviews)
+                         {
+                        <tr>
+                            <td>@item.RatingId</td>
+                            <td>@item.UserRating</td>
+                            <td>@item.ReviewDescription</td>
+                            <td>@item.DateRated</td>
+                            <td>@item.Rater</td>
+                            <td>@item.MovieId</td>
+                        </tr>
+                         }
+                    </tbody>
+                 }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

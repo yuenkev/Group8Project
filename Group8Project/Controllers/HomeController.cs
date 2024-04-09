@@ -160,7 +160,7 @@ namespace Group8Project.Controllers
             return View(new RViewModel
             {
                 Movies = _movieRepository.Movies,
-                Reviews = _reviewRepository.Reviews
+                Reviews = _reviewRepository.GetReviewsById(movie.MovieId)
             });
         }
 
@@ -190,5 +190,29 @@ namespace Group8Project.Controllers
                 });
             }
         }
+
+        [HttpGet]
+        public IActionResult SearchPage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SearchPage(string searchInput)
+        {
+
+            //based on the input we want to search our movie
+            Movie movie = _movieRepository.Movies.FirstOrDefault(x => x.Title == searchInput);
+
+            // then we'll grab and list of the reviews for that movieId
+            IEnumerable<Review>? tempReviews = _reviewRepository.GetReviewsById(movie.MovieId);
+
+            //then we'll return the view with the list of reviews based on the id
+            return View(new SViewModel
+            {
+                Reviews = tempReviews
+            });
+        }
+
     }
 }

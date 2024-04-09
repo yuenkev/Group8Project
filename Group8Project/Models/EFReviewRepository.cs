@@ -58,5 +58,10 @@
             return context.Reviews.FirstOrDefault(r => r.RatingId == id);
         }
 
+        public IEnumerable<Review> GetReviewsById(int id)
+        {
+            return context.Reviews.Where(r => r.MovieId == id).ToList();
+        }
+
     }
 }

@@ -7,5 +7,6 @@
         public void removeReview(int id);
         Review UpdateReview(Review review);
         Review GetReviewById(int id);
+        IEnumerable<Review> GetReviewsById(int id);
     }
 }
