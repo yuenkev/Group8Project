@@ -2,6 +2,6 @@
 {
     public class HViewModel
     {
-
+        public IEnumerable<Review>? Reviews { get; set; } = Enumerable.Empty<Review>();
     }
 }

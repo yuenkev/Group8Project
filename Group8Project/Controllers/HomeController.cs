@@ -98,12 +98,18 @@ namespace Group8Project.Controllers
                 User authenticatedUser = _userRepository.Users.FirstOrDefault(x => x.Email == us.Email);
                 ViewBag.User = authenticatedUser;
 
-                return View("HomePage");
-                //return View("DashboardPage", new DViewModel
-                //{
-                //    Trucks = _truckRepository.Trucks,
-                //    Routes = _routeRepository.Routes
-                //});
+                //grab the 5 most recent reviews and display them
+                IEnumerable<Review>? latestReviews = _reviewRepository.Reviews
+                           .OrderByDescending(review => review.MovieId) // Order reviews by movie Id, newest first
+                           .Take(5) // Take the top 5
+                           .ToList();
+
+
+                return View("HomePage", new HViewModel
+                {
+                    Reviews = latestReviews
+                });
+   
             }
             else
             {
@@ -113,7 +119,7 @@ namespace Group8Project.Controllers
         }
 
         [HttpGet]
-        public IActionResult HomePage(HViewModel model)
+        public IActionResult HomePage()
         {
             return View();
         }

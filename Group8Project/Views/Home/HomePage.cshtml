@@ -28,7 +28,45 @@
         </div>
     </div>
 
-
+    <br /><br />
     @* Show the most recent reviews (5) *@
+
+
+    <h1 class="display-4">Recent Reviews</h1>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Rating ID</th>
+                            <th scope="col">User Rating (1-10)</th>
+                            <th scope="col">Review Description</th>
+                            <th scope="col">Date Rated</th>
+                            <th scope="col">Rater</th>
+                            <th scope="col">Movie ID</th>
+                        </tr>
+                    </thead>
+                    @if (Model != null && Model.Reviews != null)
+                    {
+                        <tbody>
+                            @foreach (var item in Model.Reviews)
+                            {
+                                <tr>
+                                    <td>@item.RatingId</td>
+                                    <td>@item.UserRating</td>
+                                    <td>@item.ReviewDescription</td>
+                                    <td>@item.DateRated</td>
+                                    <td>@item.Rater</td>
+                                    <td>@item.MovieId</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
     
 </div>
