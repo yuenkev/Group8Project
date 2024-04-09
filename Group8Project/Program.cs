@@ -1,3 +1,6 @@
+//Author: Murtaza Mian
+// Description: Program.cs
+
 using Group8Project.Models;
 using Group8Projects.Models;
 using Microsoft.EntityFrameworkCore;

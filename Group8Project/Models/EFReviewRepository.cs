@@ -1,4 +1,7 @@
-﻿namespace Group8Project.Models
+﻿// Author: Murtaza Mian
+// Description: Implements all the IReviewRepository Interface methods
+
+namespace Group8Project.Models
 {
     public class EFReviewRepository : IReviewRepository
     {
@@ -57,7 +60,6 @@
         {
             return context.Reviews.FirstOrDefault(r => r.RatingId == id);
         }
-
         public IEnumerable<Review> GetReviewsById(int id)
         {
             return context.Reviews.Where(r => r.MovieId == id).ToList();

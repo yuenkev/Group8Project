@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Author: Kevin Yuen 
+// Description: API Controller for the Movie Entity
+
+using Microsoft.AspNetCore.Mvc;
 using Group8Project.Models;
 using System.Collections.Generic;
 

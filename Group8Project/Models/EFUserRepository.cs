@@ -1,4 +1,7 @@
-﻿using Group8Project.Models;
+﻿// Author: Sebastian Villafane Ramos
+// Description: Implements all the IUserRepository Interface methods
+
+using Group8Project.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Group8Projects.Models
@@ -15,16 +18,16 @@ namespace Group8Projects.Models
 
         public User addUser(User us)
         {
-            var existingUser = context.Users.FirstOrDefault(u => u.Email == us.Email);
+            var existingUser = context.Users.FirstOrDefault(u => u.UserId == us.UserId);
 
             if (existingUser != null)
             {
                 // Update existing user properties
+                existingUser.Email = us.Email;
                 existingUser.FName = us.FName;
                 existingUser.LName = us.LName;
                 existingUser.PNumber = us.PNumber;
                 existingUser.Password = us.Password;
-                existingUser.RePassword = us.RePassword;
 
                 // Save changes to the existing user
                 context.SaveChanges();
@@ -40,9 +43,9 @@ namespace Group8Projects.Models
                 return us;
             }
         }
-        public void removeUser(string email)
+        public void removeUser(int id)
         {
-            var userToRemove = context.Users.FirstOrDefault(u => u.Email == email);
+            var userToRemove = context.Users.FirstOrDefault(u => u.UserId == id);
 
             if (userToRemove != null)
             {
@@ -51,9 +54,9 @@ namespace Group8Projects.Models
             }
         }
 
-        public User GetUserByEmail(string email)
+        public User GetUserById(int id)
         {
-            return context.Users.FirstOrDefault(u => u.Email == email);
+            return context.Users.FirstOrDefault(u => u.UserId == id);
         }
 
         public bool EmailExists(string email)

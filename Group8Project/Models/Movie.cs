@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Author: Kevin Yuen   
+// Description: Movie Model
+
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Group8Project.Models
@@ -6,8 +9,6 @@ namespace Group8Project.Models
     public class Movie
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required(ErrorMessage = "Please, enter a Movie ID.")]
         public int MovieId { get; set; }
 
         [Required, StringLength(100)]

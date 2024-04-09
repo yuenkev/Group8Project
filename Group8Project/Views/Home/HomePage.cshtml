@@ -1,4 +1,7 @@
-﻿@* import the model class *@
+﻿@* Author: Sebastian Villafane Ramos
+Description: Main dashboard *@
+
+@* import the model class *@
 @model Group8Project.Models.ViewModels.HViewModel
 
 @* Assign viewbag into a variable *@
@@ -40,12 +43,11 @@
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Rating ID</th>
+                            <th scope="col">Movie</th>
                             <th scope="col">User Rating (1-10)</th>
                             <th scope="col">Review Description</th>
                             <th scope="col">Date Rated</th>
                             <th scope="col">Rater</th>
-                            <th scope="col">Movie ID</th>
                         </tr>
                     </thead>
                     @if (Model != null && Model.Reviews != null)
@@ -54,12 +56,12 @@
                             @foreach (var item in Model.Reviews)
                             {
                                 <tr>
-                                    <td>@item.RatingId</td>
+                                    <td>@Model.GetMovieName(item.MovieId)</td>
                                     <td>@item.UserRating</td>
                                     <td>@item.ReviewDescription</td>
                                     <td>@item.DateRated</td>
                                     <td>@item.Rater</td>
-                                    <td>@item.MovieId</td>
+                                    
                                 </tr>
                             }
                         </tbody>

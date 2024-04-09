@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Author: Murtaza Mian 
+// Description:API Controller for the Review Entity
+
+using Microsoft.AspNetCore.Mvc;
 using Group8Project.Models;
 using System.Collections.Generic;
 

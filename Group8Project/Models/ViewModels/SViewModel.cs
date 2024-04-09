@@ -1,4 +1,7 @@
-﻿namespace Group8Project.Models.ViewModels
+﻿// Author: Kevin
+// Description: View Model for the Search Page
+
+namespace Group8Project.Models.ViewModels
 {
     public class SViewModel
     {

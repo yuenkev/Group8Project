@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// Author: Kevin Yuen   
+// Description: DB Context for migrations
+
+
+using Microsoft.EntityFrameworkCore;
 
 namespace Group8Project.Models
 {

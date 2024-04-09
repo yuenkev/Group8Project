@@ -25,7 +25,10 @@ namespace Group8Project.Migrations
             modelBuilder.Entity("Group8Project.Models.Movie", b =>
                 {
                     b.Property<int>("MovieId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -60,7 +63,10 @@ namespace Group8Project.Migrations
             modelBuilder.Entity("Group8Project.Models.Review", b =>
                 {
                     b.Property<int>("RatingId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RatingId"));
 
                     b.Property<DateTime>("DateRated")
                         .HasColumnType("datetime2");
@@ -88,8 +94,15 @@ namespace Group8Project.Migrations
 
             modelBuilder.Entity("Group8Project.Models.User", b =>
                 {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FName")
                         .IsRequired()
@@ -107,11 +120,7 @@ namespace Group8Project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RePassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Email");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });

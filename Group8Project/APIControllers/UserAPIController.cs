@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Author: Sebastian Villafane Ramos
+// Description: API Controller for the User Entity
+
+using Microsoft.AspNetCore.Mvc;
 using Group8Project.Models;
 using System.Collections.Generic;
 
@@ -19,16 +22,16 @@ namespace Group8Project.APIControllers
         [HttpGet]
         public IEnumerable<Models.User> Get() => _userRepository.Users;
 
-        // GET: api/UserAPI/{email}
-        [HttpGet("{email}")]
-        public ActionResult<Models.User> GetUserByEmail(string email)
+        // GET: api/UserAPI/{id}
+        [HttpGet("{id}")]
+        public ActionResult<Models.User> GetUserById(int id)
         {
-            if (string.IsNullOrEmpty(email.ToString()))
+            if (id == 0)
             {
-                return BadRequest("Email cannot be null or empty.");
+                return BadRequest("Id cannot be 0");
             }
 
-            var user = _userRepository.GetUserByEmail(email);
+            var user = _userRepository.GetUserById(id);
 
             if (user == null)
             {
@@ -48,17 +51,16 @@ namespace Group8Project.APIControllers
                 Email = user.Email,
                 PNumber = user.PNumber,
                 Password = user.Password,
-                RePassword = user.RePassword
             });
 
         [HttpPut]
         public Models.User Put([FromBody] Models.User user) =>
             _userRepository.UpdateUser(user);
 
-        [HttpDelete("{email}")]
-        public void Delete(string email)
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            _userRepository.removeUser(email);
+            _userRepository.removeUser(id);
         }
 
     }

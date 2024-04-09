@@ -1,5 +1,15 @@
-﻿@* import the model class *@
+﻿@* Author:
+Description: Movie Page for our application*@
+
+@* import the model class *@
 @model Group8Project.Models.ViewModels.MViewModel
+
+<style>
+    table.forum td {
+        padding: 3px 7px;
+        text-align: right;
+    }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Movie List</h1>
@@ -10,7 +20,6 @@
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Movie ID</th>
                             <th scope="col">Title</th>
                             <th scope="col">Description</th>
                             <th scope="col">Genre</th>
@@ -26,13 +35,12 @@
                             @foreach (var item in Model.Movies)
                             {
                                 <tr>
-                                    <td>@item.MovieId</td>
                                     <td>@item.Title</td>
                                     <td>@item.Description</td>
                                     <td>@item.Genre</td>
                                     <td>@item.Director</td>
                                     <td>@item.Runtime</td>
-                                    <td>@item.ReleaseDate</td>
+                                    <td>@item.ReleaseDate.ToString("dd/MM/yyyy")</td>
                                     <!-- Add a button or link for rating -->
                                     <td>
                                         <a asp-controller="Home" asp-action="ReviewPage" asp-route-id="@item.MovieId" class="btn btn-primary">Rate</a>
@@ -51,29 +59,34 @@
         <div class="container">
             <hr>
             @* Displays all the error messages *@
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <label asp-for="tempMovie!.MovieId"><b>Movie Id:</b></label>
-            <input asp-for="tempMovie!.MovieId">
-            <br /><br />
-            <label asp-for="tempMovie!.Title"><b>Title:</b></label>
-            <input asp-for="tempMovie!.Title">
-            <br /><br />
-            <label asp-for="tempMovie!.Description"><b>Description:</b></label>
-            <input asp-for="tempMovie!.Description">
-            <br /><br />
-            <label asp-for="tempMovie!.Genre"><b>Genre:</b></label>
-            <input asp-for="tempMovie!.Genre">
-            <br /><br />
-            <label asp-for="tempMovie!.Director"><b>Director:</b></label>
-            <input asp-for="tempMovie!.Director">
-            <br /><br />
-            <label asp-for="tempMovie!.Runtime"><b>Runtime:</b></label>
-            <input asp-for="tempMovie!.Runtime">
-            <br /><br />
-            <label asp-for="tempMovie!.ReleaseDate"><b>Release Date:</b></label>
-            <input asp-for="tempMovie!.ReleaseDate">
-            <br /><br />
-
+            <div asp-validation-summary="All" class="text-danger" style="margin: auto; text-align: left; width: 30%"></div>
+            <table class="forum" style="margin: 0 auto">
+                <tr>
+                    <td><label asp-for="tempMovie!.Title"><b>Title:</b></label></td>
+                    <td><input asp-for="tempMovie!.Title"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="tempMovie!.Description"><b>Description:</b></label></td>
+                    <td><input asp-for="tempMovie!.Description"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="tempMovie!.Genre"><b>Genre:</b></label></td>
+                    <td><input asp-for="tempMovie!.Genre"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="tempMovie!.Director"><b>Director:</b></label></td>
+                    <td><input asp-for="tempMovie!.Director"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="tempMovie!.Runtime"><b>Runtime:</b></label></td>
+                    <td><input asp-for="tempMovie!.Runtime"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="tempMovie!.ReleaseDate"><b>Release Date:</b></label></td>
+                    <td><input asp-for="tempMovie!.ReleaseDate" type="date" style="width: 100%"></td>
+                </tr>
+            </table>
+            <br />
             <div class="clearfix">
                 <button type="submit" class="signupbtn">Add Movie</button>
             </div>
@@ -84,6 +97,6 @@
     <br />
 
     <div class="btn btn-sm" style="border:1px solid #ccc">
-        <a asp-action="LoginPage">Go To Dashboard</a>
+        <a asp-action="HomePage">Go To Dashboard</a>
     </div>
 </div>

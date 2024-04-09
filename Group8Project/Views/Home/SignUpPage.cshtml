@@ -1,8 +1,18 @@
-﻿@{
+﻿@* Author: Sebastian Villafane Ramos
+Description: Sign Up Page for our application*@
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 @model Group8Project.Models.User
+
+<style>
+    td {
+        padding: 3px 7px;
+        text-align: right;
+    }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Sign Up</h1>
@@ -11,25 +21,30 @@
         <div class="container">
             <hr>
             @* Displays all the error messages *@
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <label asp-for="FName"><b>First name:</b></label>
-            <input asp-for="FName">
-            <br /><br />
-            <label asp-for="LName"><b>Last name:</b></label>
-            <input asp-for="LName">
-            <br /><br />
-            <label asp-for="Email"><b>Email</b></label>
-            <input asp-for="Email">
-            <br /><br />
-            <label asp-for="PNumber"><b>Phone Number</b></label>
-            <input asp-for="PNumber">
-            <br /><br />
-            <label asp-for="Password"><b>Password</b></label>
-            <input asp-for="Password" type="password">
-            <br /><br />
-            <label asp-for="RePassword"><b>Repeat Password</b></label>
-            <input asp-for="RePassword" type="password">
-            <br /><br />
+            <div asp-validation-summary="All" class="text-danger" style="margin: auto; text-align: left; width: 30%"></div>
+            <table style="margin: 0 auto">
+                <tr>
+                    <td><label asp-for="FName"><b>First name:</b></label></td>
+                    <td><input asp-for="FName"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="LName"><b>Last name:</b></label></td>
+                    <td><input asp-for="LName"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Email"><b>Email:</b></label></td>
+                    <td><input asp-for="Email"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="PNumber"><b>Phone Number:</b></label></td>
+                    <td><input asp-for="PNumber"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Password"><b>Password:</b></label></td>
+                    <td><input asp-for="Password" type="password"></td>
+                </tr>
+            </table>
+            <br />
             <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
             <div class="clearfix">
@@ -43,4 +58,3 @@
         <a asp-action="LoginPage">Go To Login Page</a>
     </div>
 </div>
-

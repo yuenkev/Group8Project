@@ -1,29 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@* Author: Sebastian Villafane Ramos
+Description: Login Page for our application*@
 
 @model Group8Project.Models.User
+
+<style>
+    td {
+        padding: 3px 7px;
+        text-align: right;
+    }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Sign In</h1>
     <p>Welcome! Please Sign into Your Account.</p>
-    
-    
+
+
     <form asp-action="LoginPage" method="post" style="border:1px solid #ccc">
         <div class="container">
             <hr>
-            <div asp-validation-summary="All" class="text-danger"></div>
- 
-            <label asp-for="Email"><b>Email</b></label>
-            <input asp-for="Email" type="text" placeholder="Enter Email" name="email">
-            <br /><br />
- 
-            <label asp-for="Password"><b>Password</b></label>
-            <input asp-for="Password" type="password" placeholder="Enter Password">
-            <br /><br />
-
+            <div asp-validation-summary="All" class="text-danger" style="margin: auto; text-align: left; width: 30%"></div>
+            <table style="margin: 0 auto">
+                <tr>
+                    <td><label asp-for="Email"><b>Email:</b></label></td>
+                    <td><input asp-for="Email" type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Password"><b>Password:</b></label></td>
+                    <td><input asp-for="Password" type="password"></td>
+                </tr>
+            </table>
+            <br />
             <div class="clearfix">
                 <button type="submit" class="signinbtn">Sign In</button>
             </div>
@@ -38,4 +44,3 @@
     </div>
 
 </div>
-

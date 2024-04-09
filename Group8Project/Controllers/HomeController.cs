@@ -1,4 +1,7 @@
-﻿using Group8Project.Models;
+﻿// Author: Kevin Yuen
+// Description: Home Controller for the project
+
+using Group8Project.Models;
 using Group8Project.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +30,7 @@ namespace Group8Project.Controllers
         [HttpGet]
         public IActionResult SignUpPage()
         {
+            UserSession.setCurrentUser(null);
             return View();
         }
 
@@ -60,6 +64,7 @@ namespace Group8Project.Controllers
         [HttpGet]
         public IActionResult LoginPage()
         {
+            UserSession.setCurrentUser(null);
             return View();
         }
 
@@ -96,20 +101,10 @@ namespace Group8Project.Controllers
                 // Assign the user object to a ViewBag
                 // Check if the email and password exist and match in the repository
                 User authenticatedUser = _userRepository.Users.FirstOrDefault(x => x.Email == us.Email);
+                UserSession.setCurrentUser(authenticatedUser);
                 ViewBag.User = authenticatedUser;
 
-                //grab the 5 most recent reviews and display them
-                IEnumerable<Review>? latestReviews = _reviewRepository.Reviews
-                           .OrderByDescending(review => review.MovieId) // Order reviews by movie Id, newest first
-                           .Take(5) // Take the top 5
-                           .ToList();
-
-
-                return View("HomePage", new HViewModel
-                {
-                    Reviews = latestReviews
-                });
-   
+                return RedirectToAction("HomePage");
             }
             else
             {
@@ -119,19 +114,44 @@ namespace Group8Project.Controllers
         }
 
         [HttpGet]
-        public IActionResult HomePage()
+        public IActionResult HomePage(HViewModel model)
         {
-            return View();
+            if (UserSession.getCurrentUser() == null) //Check if user is logged in
+            {
+                return RedirectToAction("LoginPage");
+            }
+            else
+            {
+                //grab the 5 most recent reviews and display them
+                IEnumerable<Review>? latestReviews = _reviewRepository.Reviews
+                            .OrderByDescending(review => review.MovieId) // Order reviews by movie Id, newest first
+                            .Take(5) // Take the top 5
+                            .ToList();
+
+                model.Reviews = latestReviews;
+                model.Movies = _movieRepository.Movies;
+
+
+                ViewBag.User = UserSession.getCurrentUser();
+                return View(model);
+            }
         }
 
 
         [HttpGet]
         public IActionResult MoviePage()
         {
-            return View(new MViewModel
+            if (UserSession.getCurrentUser() == null) //Check if user is logged in
             {
-                Movies = _movieRepository.Movies
-            });
+                return RedirectToAction("LoginPage");
+            }
+            else
+            {
+                return View(new MViewModel
+                {
+                    Movies = _movieRepository.Movies
+                });
+            }
         }
 
         [HttpPost]
@@ -155,19 +175,27 @@ namespace Group8Project.Controllers
         [HttpGet]
         public IActionResult ReviewPage(int id)
         {
-            //find movie based on movieId selected
-            Movie movie = _movieRepository.Movies.FirstOrDefault(x => x.MovieId == id);
-
-            if (movie == null)
+            if (UserSession.getCurrentUser() == null) //Check if user is logged in
             {
-                return NotFound();
+                return RedirectToAction("LoginPage");
             }
-
-            return View(new RViewModel
+            else
             {
-                Movies = _movieRepository.Movies,
-                Reviews = _reviewRepository.GetReviewsById(movie.MovieId)
-            });
+                //find movie based on movieId selected
+                Movie movie = _movieRepository.Movies.FirstOrDefault(x => x.MovieId == id);
+
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+
+                return View(new RViewModel
+                {
+                    Movies = _movieRepository.Movies,
+                    Reviews = _reviewRepository.GetReviewsById(id),
+                    MovieId = movie.MovieId
+                });
+            }
         }
 
         [HttpPost]
@@ -200,7 +228,14 @@ namespace Group8Project.Controllers
         [HttpGet]
         public IActionResult SearchPage()
         {
-            return View();
+            if (UserSession.getCurrentUser() == null) //Check if user is logged in
+            {
+                return RedirectToAction("LoginPage");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]

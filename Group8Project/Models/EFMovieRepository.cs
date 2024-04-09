@@ -1,4 +1,7 @@
-﻿namespace Group8Project.Models
+﻿// Author: Kevin Yuen
+// Description: Implements all the IMovie Repository Interface methods
+
+namespace Group8Project.Models
 {
     public class EFMovieRepository : IMovieRepository
     {
@@ -10,12 +13,20 @@
         public IQueryable<Movie> Movies => context.Movies;
         public Movie addMovie(Movie mv)
         {
+            // Add new movie to the database
+            context.Movies.Add(mv);
+            context.SaveChanges();
+
+            return mv;
+
+        }
+        public Movie UpdateMovie(Movie mv)
+        {
             var existingMovie = context.Movies.FirstOrDefault(m => m.MovieId == mv.MovieId);
 
             if (existingMovie != null)
             {
                 // Update existing user properties
-                existingMovie.MovieId = mv.MovieId;
                 existingMovie.Title = mv.Title;
                 existingMovie.Description = mv.Description;
                 existingMovie.Genre = mv.Genre;
@@ -28,19 +39,8 @@
 
                 return existingMovie;
             }
-            else
-            {
-                // Add new movie to the database
-                context.Movies.Add(mv);
-                context.SaveChanges();
 
-                return mv;
-            }
-
-        }
-        public Movie UpdateMovie(Movie movie)
-        {
-            return addMovie(movie);
+            return null;
         }
 
         public void removeMovie(int id)

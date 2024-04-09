@@ -1,15 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Author: Sebastian Villafane Ramos
+// Description: User Model
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Group8Project.Models
 {
     public class User
     {
-        
+        [Key]
+        public int UserId { get; set; }
         [Required(ErrorMessage = "Please, enter your First Name")]
         public string? FName { get; set; }
         [Required(ErrorMessage = "Please, enter your Last Name")]
         public string? LName { get; set; }
-        [Key]
         [Required(ErrorMessage = "Please, enter your Email")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid email address.")]
         public string? Email { get; set; }
@@ -18,8 +21,5 @@ namespace Group8Project.Models
         public string? PNumber { get; set; }
         [Required(ErrorMessage = "Please, enter your Password")]
         public string? Password { get; set; }
-        [Required(ErrorMessage = "Please, enter your repeated Password")]
-        [Compare("Password", ErrorMessage = "Passwords do not match")]
-        public string? RePassword { get; set; }
     }
 }
