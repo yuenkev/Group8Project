@@ -1,4 +1,4 @@
-﻿// Author: Kevin
+﻿// Author: Kevin Yuen
 // Description: View Model for the Search Page
 
 namespace Group8Project.Models.ViewModels
